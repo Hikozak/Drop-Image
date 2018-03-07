@@ -42,6 +42,7 @@ header{
   padding-top:30px;
   min-height:70px;
   border-bottom:#e8491d 3px solid;
+  
 }
 
 header a{
@@ -65,7 +66,9 @@ header #branding h1{
   margin:0;
 }
 
+
 header nav{
+
   float:right;
   margin-top:10px;
 }
