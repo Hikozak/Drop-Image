@@ -12,6 +12,10 @@
 		<div id="uploads"><br>List of uploads</div>
 	</div>
 
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/uikit-icons.min.js"></script>
+    <script type="text/javascript" src="js/uikit.min.js"></script>
 	<script type="text/javascript">
 		
 		(function(){
@@ -28,7 +32,7 @@
 				}
 			};
 
-			var upload = functions(files){
+			var upload = function(files){
 				var formData = new FormData(),
 				xhr = new XMLHttpRequest(),
 				x;
