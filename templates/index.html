@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drag & Drop Image</title>
+<!--	<link rel="stylesheet" type="text/css" href="styleindex.css">-->
+   <style>
+    body{
+      font: 15px/1.5 Arial, Helvetica,sans-serif;
+      padding:0;
+      margin:0;
+      background-color:#f4f4f4;
+    }
+
+    /* Global */
+    .container{
+      width:80%;
+      margin:auto;
+      overflow:hidden;
+    }
+    /*skidaddle skidoodle*/
+    /*your dick is now a noodle*/
+    ul{
+      margin:0;
+      padding:0;
+    }
+
+    .button_1{
+      height:38px;
+      background:#e8491d;
+      border:0;
+      padding-left: 20px;
+      padding-right:20px;
+      color:#ffffff;
+    }
+
+    .dark{
+      padding:15px;
+      background:#35424a;
+      color:#ffffff;
+      margin-top:10px;
+      margin-bottom:10px;
+    }
+
+    /* Header **/
+    header{
+      background:#35424a;
+      color:#ffffff;
+      padding-top:30px;
+      min-height:70px;
+      border-bottom:#e8491d 3px solid;
+
+    }
+
+    header a{
+      color:#ffffff;
+      text-decoration:none;
+      text-transform: uppercase;
+      font-size:16px;
+    }
+
+    header li{
+      float:left;
+      display:inline;
+      padding: 0 20px 0 20px;
+    }
+
+    header #branding{
+      float:left;
+    }
+
+    header #branding h1{
+      margin:0;
+    }
+
+
+    header nav{
+
+      float:right;
+      margin-top:10px;
+    }
+
+    header .highlight, header .current a{
+      color:#e8491d;
+      font-weight:bold;
+    }
+
+    header a:hover{
+      color:#cccccc;
+      font-weight:bold;
+    }
+
+    /* Showcase */
+    #showcase{
+      min-height:400px;
+      background:url('../img/banner.jpg') no-repeat;
+      background-position: center;
+      text-align:center;
+      color:skyblue;
+    }
+
+    #showcase h1{
+      margin-top:100px;
+      font-size:55px;
+      margin-bottom:10px;
+    }
+
+    #showcase p{
+      font-size:20px;
+    }
+
+    /* Newsletter */
+    #newsletter{
+      padding:15px;
+      color:#ffffff;
+      background:#35424a
+    }
+
+    #newsletter h1{
+      float:left;
+    }
+
+    #newsletter form {
+      float:right;
+      margin-top:15px;
+    }
+
+    #newsletter input[type="email"]{
+      padding:4px;
+      height:25px;
+      width:250px;
+    }
+
+    /* Boxes */
+    #boxes{
+      margin-top:20px;
+
+    }
+
+    #boxes .box{
+      float:left;
+      text-align: center;
+      width:30%;
+      padding:10px;
+
+
+    }
+
+    #boxes button a:hover{
+
+    }
+
+    #boxes .box img{
+      width:90px;
+      height: 120px;
+    }
+
+    /* Sidebar */
+    aside#sidebar{
+      float:right;
+      width:30%;
+      margin-top:10px;
+    }
+
+    aside#sidebar .quote input, aside#sidebar .quote textarea{
+      width:90%;
+      padding:5px;
+    }
+
+    /* Main-col */
+    article#main-col{
+      float:left;
+      width:65%;
+    }
+
+    /* Services */
+    ul#services li{
+      list-style: none;
+      padding:20px;
+      border: #cccccc solid 1px;
+      margin-bottom:5px;
+      background:#e6e6e6;
+    }
+
+    footer{
+      padding:9px;
+      margin-top:9px;
+      color:#ffffff;
+      background-color:#e8491d;
+      text-align: center;
+
+      bottom: -20px;
+      width: 100%;
+    }
+    body {
+        font-family: "Arial", sans-serif;
+    }
+
+    .content{
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .dropzone{
+        width: 300px;
+        height: 300px;
+        border: 2px dashed #ccc;
+        color: #ccc;
+        line-height: 300px;
+        text-align: center;
+    }
+
+    .dropzone.dragover{
+        border-color: #000;
+        color: #000;
+    }
+
+    /* Media Queries */
+    @media(max-width: 768px){
+      header #branding,
+      header nav,
+      header nav li,
+      #newsletter h1,
+      #newsletter form,
+      #boxes .box,
+      article#main-col,
+      aside#sidebar{
+        float:none;
+        text-align:center;
+        width:100%;
+      }
+
+      header{
+        padding-bottom:20px;
+      }
+
+      #showcase h1{
+        margin-top:40px;
+      }
+
+      #newsletter button, .quote button{
+        display:block;
+        width:100%;
+      }
+
+      #newsletter form input[type="email"], .quote input, .quote textarea{
+        width:100%;
+        margin-bottom:5px;
+      }
+    }
+       </style>
+</head>
+<body>
+
+	<div class="content">
+		<h1>Image Upload</h1>
+		<div class="dropzone" id="dropzone">Drag Images here to upload</div>
+		<div id="uploads"><br>List of uploads</div>
+	</div>
+
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/uikit-icons.min.js"></script>
+    <script type="text/javascript" src="js/uikit.min.js"></script>
+	<script type="text/javascript">
+		
+		(function(){
+			var dropzone = document.getElementById('dropzone');
+
+			var displayUploads = function(data){
+				var uploads = document.getElementById('uploads'),
+				anchor,
+				x;
+
+				for(x = 0; x < data.length; x++){
+					anchor = document.createElement('a');
+					anchor.href = data[x].file;
+				}
+			};
+
+			var upload = function(files){
+				var formData = new FormData(),
+				xhr = new XMLHttpRequest(),
+				x;
+
+				for(x = 0; x < files.length; x++){
+					formData.append('file[]', files[x]);
+				}
+
+				xhr.open('post','upload.php');
+				xhr.send(formData);
+				
+			};
+
+
+			dropzone.ondrop = function(e){
+				e.preventDefault();
+				this.className = 'dropzone';
+				upload(e.dataTransfer.files);
+			};
+
+			dropzone.ondragover = function(){
+				this.className = 'dropzone dragover';
+				return false;
+			};
+
+			dropzone.ondragleave = function(){
+				this.className = 'dropzone';
+				return false;
+			};
+
+
+		}());
+		
+	</script>
+
+</body>
+</html>
